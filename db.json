@@ -47,6 +47,24 @@
       "name": "Little Green Men",
       "image": "http://www.pngmart.com/files/3/Toy-Story-Alien-PNG-File.png",
       "likes": 1
+    },
+    {
+      "name": "ps5",
+      "image": "https://gmedia.playstation.com/is/image/SIEPDC/playstation-5-horizontal-product-shot-01-ps5-en-23nov20?$1200px$",
+      "likes": 2,
+      "id": 9
+    },
+    {
+      "name": "nerf gun ",
+      "image": "https://www.shutterstock.com/image-photo/winneconne-wi-5-may-2019-260nw-1390269797.jpg",
+      "likes": 0,
+      "id": 10
+    },
+    {
+      "name": "wii",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/1/14/Wii-console.jpg",
+      "likes": 0,
+      "id": 11
     }
   ]
 }

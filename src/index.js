@@ -10,7 +10,7 @@ const toyCollection = document.querySelector("#toy-collection");
 */
 
 // helper function for updating the server
-function updateServer(toy) {
+function patchServer(toy) {
 	fetch(`http://localhost:3000/toys/${toy.id}`, {
 		method: "PATCH",
 		headers: {
@@ -30,7 +30,21 @@ function updateServer(toy) {
 			console.log(error.message);
 		});
 }
-
+function postServer(toyObject) {
+	fetch(toysURL, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			Accept: "application/json",
+		},
+		body: JSON.stringify({ ...toyObject, likes: 0 }),
+	})
+		.then(() => {
+			document.querySelector("#toy-selection").innerHTML = "";
+			getToysFromServer();
+		})
+		.catch((error) => console.log(error.message));
+}
 function renderCard(toy) {
 	//card parent element
 	const card = document.createElement("div");
@@ -45,6 +59,7 @@ function renderCard(toy) {
 	const cardImage = document.createElement("img");
 	cardImage.className = "toy-avatar";
 	cardImage.src = toy.image;
+	cardImage.alt = toy.image;
 	card.appendChild(cardImage);
 
 	// Like count h2 child element
@@ -58,7 +73,7 @@ function renderCard(toy) {
 	cardLikeButton.addEventListener("click", () => {
 		toy.likes++;
 		console.log(toy);
-		updateServer(toy);
+		patchServer(toy);
 
 		cardLikes.textContent = `${toy.likes} Likes`;
 	});
@@ -79,6 +94,16 @@ document.addEventListener("DOMContentLoaded", () => {
 	getToysFromServer();
 	const addBtn = document.querySelector("#new-toy-btn");
 	const toyFormContainer = document.querySelector(".container");
+	const toyForm = document.querySelector("form");
+	toyForm.addEventListener("submit", (e) => {
+		e.preventDefault();
+		postServer({
+			name: e.target.getElementsByClassName("input-text")[0].value,
+			image: e.target.getElementsByClassName("input-text")[1].value,
+		});
+
+		e.target.reset();
+	});
 	addBtn.addEventListener("click", () => {
 		// hide & seek with the form
 		addToy = !addToy;
